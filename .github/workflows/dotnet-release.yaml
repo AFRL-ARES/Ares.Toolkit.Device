@@ -18,13 +18,13 @@ jobs:
         working-directory: dotnet
       - name: Pack
         run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
-        working-directory: dotnet/Ares.Toolkit.Device
+        working-directory: Ares.Toolkit.Device
       - name: Push
         run: |
           dotnet nuget push Ares.Toolkit.Device.${VERSION}.nupkg \
-          --api-key ${NUGET_TOKEN} \
+          --api-key ${NUGET_API_TOKEN} \
           --source https://api.nuget.org/v3/index.json \
           --skip-duplicate
-        working-directory: dotnet/Ares.Toolkit.Device
+        working-directory: Ares.Toolkit.Device
         env:
           NUGET_TOKEN: ${{ secrets.NUGET_API_KEY }}
