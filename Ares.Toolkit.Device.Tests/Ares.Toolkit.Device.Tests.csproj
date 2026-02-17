@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Device\TestReply.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
     <!-- Make assembly usable for Moq, so Moq is able to instanciate objects of 'internal' classes -->
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
@@ -40,13 +36,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ares.Toolkit.Device\Ares.Toolkit.Device.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Protobuf Include="Device\TestReply.proto">
-      <GrpcServices>None</GrpcServices>
-      <Generator>MSBuild:Compile</Generator>
-    </Protobuf>
   </ItemGroup>
 
 </Project>
