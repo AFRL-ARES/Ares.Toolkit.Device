@@ -27,4 +27,5 @@ public interface IAresDevice : IDisposable
   AresDataSchema SettingSchema { get; }
   Task<CommandResult> ExecuteCommand(string command, List<Parameter> parameters, CancellationToken ct);
   Task UpdateSettings(AresStruct settings);
+  void UpdateStatus(OperationalState state, string statusMessage = "");
 }

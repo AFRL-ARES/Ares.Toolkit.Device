@@ -49,6 +49,15 @@ public abstract class AresDevice : IAresDevice
     }
   }
 
+  public void UpdateStatus(OperationalState state, string statusMessage = "")
+  {
+    Status = new DeviceOperationalStatus
+    {
+      OperationalState = state,
+      Message = statusMessage
+    };
+  }
+
   public IObservable<DeviceOperationalStatus> StatusObservable => _statusSubject.AsObservable();
   public abstract IObservable<AresStruct> StateStream { get; }
   public abstract Task<bool> Activate(CancellationToken ct);

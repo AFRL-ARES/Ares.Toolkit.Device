@@ -14,7 +14,7 @@ public class TestDevice : AresDevice
   public TestDevice() : base("Test Device", "TestDevice")
   {
     CommandDescriptors = [new DeviceCommandDescriptor() { Name = "Record", Description = "A test command" }];
-    Status = new DeviceOperationalStatus() { OperationalState = OperationalState.Inactive, Message = "I'm not ready to do funny experiments!" };
+    Status = new DeviceOperationalStatus() { OperationalState = OperationalState.Inactive, Message = "I'm not ready to do experiments!" };
   }
 
   public override Task EnterSafeMode(CancellationToken ct)
@@ -22,9 +22,7 @@ public class TestDevice : AresDevice
 
   public override Task<bool> Activate(CancellationToken ct)
   {
-    Status.OperationalState = OperationalState.Active;
-    Status.Message = "I'm ready to do funny experiments!";
-
+    UpdateStatus(OperationalState.Active, "I'm ready to do experiments!");
     return Task.FromResult(true);
   }
 
