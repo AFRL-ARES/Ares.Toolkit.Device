@@ -29,7 +29,7 @@ public class TestDevice : AresDevice
   public override Task<AresStruct> GetState()
     => Task.FromResult(new AresStruct());
 
-  public override Task<CommandResult> ExecuteCommand(string command, List<Parameter> parameters, CancellationToken token)
+  public override Task<CommandResult> ExecuteCommand(string command, List<DeviceCommandArgument> arguments, CancellationToken token)
   {
     var cmd = Enum.Parse(typeof(TestDeviceCommand), command);
 
@@ -39,16 +39,16 @@ public class TestDevice : AresDevice
       case TestDeviceCommand.Record2:
       case TestDeviceCommand.Record3:
         var result = new CommandResult();
-        var param = parameters.First(parameter => parameter.Metadata.Name == TestDeviceCommandParameter.ReplyParameter.ToString());
+        var param = arguments.First(parameter => parameter.ArgName == TestDeviceCommandParameter.ReplyParameter.ToString());
 
-        if(!param.Value.HasNumberValue)
+        if(!param.ArgValue.HasNumberValue)
         {
           result.Success = false;
           result.Error = "Test Device expected a number as it's parameter, but none was received!";
           return Task.FromResult(result);
         }
 
-        result.Result = AresStructHelper.CreateNumberStruct("Test", param.Value.NumberValue);
+        result.Result = AresStructHelper.CreateNumberStruct("Test", param.ArgValue.NumberValue);
         result.Success = true;
         result.UniqueId = Guid.NewGuid().ToString();
         return Task.FromResult(result);

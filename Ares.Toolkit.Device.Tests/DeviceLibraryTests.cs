@@ -15,11 +15,10 @@ internal class DeviceLibraryTests
     var device = new TestDevice();
     var commandDescriptor = device.CommandDescriptors.First(metadata => metadata.Name == TestDeviceCommand.Record.ToString());
 
-    var parameter = new Parameter
+    var parameter = new DeviceCommandArgument
     {
-      Metadata = new ParameterMetadata { Name = "ReplyParameter" },
-      UniqueId = Guid.NewGuid().ToString(),
-      Value = AresValueHelper.CreateNumber(12345)
+      ArgName = "ReplyParameter",
+      ArgValue = AresValueHelper.CreateNumber(12345)
     };
 
     var result = await device.ExecuteCommand(commandDescriptor.Name, [parameter], CancellationToken.None);
@@ -35,11 +34,10 @@ internal class DeviceLibraryTests
     var device = new TestDevice();
     var commandName = TestDeviceCommand.Record.ToString();
 
-    var parameter = new Parameter
+    var parameter = new DeviceCommandArgument
     {
-      Metadata = new ParameterMetadata { Name = "ReplyParameter" },
-      UniqueId = Guid.NewGuid().ToString(),
-      Value = AresValueHelper.CreateString("Not a number")
+      ArgName = "ReplyParameter",
+      ArgValue = AresValueHelper.CreateString("NotaNumber")
     };
 
     var result = await device.ExecuteCommand(commandName, [parameter], CancellationToken.None);

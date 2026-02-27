@@ -23,9 +23,9 @@ public interface IAresDevice : IDisposable
   Task EnterSafeMode(CancellationToken ct = default);
   Task<AresStruct> GetState();
   IEnumerable<DeviceCommandDescriptor> CommandDescriptors { get; }
-  AresDataSchema StateSchema { get; }
-  AresDataSchema SettingSchema { get; }
-  Task<CommandResult> ExecuteCommand(string command, List<Parameter> parameters, CancellationToken ct);
+  AresStructSchema StateSchema { get; }
+  AresStructSchema SettingSchema { get; }
+  Task<CommandResult> ExecuteCommand(string command, List<DeviceCommandArgument> arguments, CancellationToken ct);
   Task UpdateSettings(AresStruct settings);
   void UpdateStatus(OperationalState state, string statusMessage = "");
 }

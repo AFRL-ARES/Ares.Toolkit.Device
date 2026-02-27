@@ -64,9 +64,9 @@ public abstract class AresDevice : IAresDevice
   public abstract Task EnterSafeMode(CancellationToken ct);
   public abstract Task<AresStruct> GetState();
   public virtual IEnumerable<DeviceCommandDescriptor> CommandDescriptors { get; protected set; } = Array.Empty<DeviceCommandDescriptor>();
-  public virtual AresDataSchema StateSchema { get; protected set; } = new();
-  public virtual AresDataSchema SettingSchema { get; protected set; } = new();
-  public abstract Task<CommandResult> ExecuteCommand(string command, List<Parameter> parameters, CancellationToken token);
+  public virtual AresStructSchema StateSchema { get; protected set; } = new();
+  public virtual AresStructSchema SettingSchema { get; protected set; } = new();
+  public abstract Task<CommandResult> ExecuteCommand(string command, List<DeviceCommandArgument> arguments, CancellationToken token);
   public abstract Task UpdateSettings(AresStruct settings);
   public string Name { get; }
   public string UniqueId { get; init; }
