@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Ares.Datamodel;
 using Ares.Datamodel.Device;
-using Ares.Datamodel.Templates;
 
 namespace Ares.Device;
 

@@ -1,6 +1,5 @@
 ﻿using Ares.Datamodel;
 using Ares.Datamodel.Device;
-using Ares.Datamodel.Templates;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
@@ -26,11 +25,6 @@ public abstract class AresDevice : IAresDevice
     _status = new DeviceOperationalStatus { OperationalState = OperationalState.Inactive };
     _statusSubject = new BehaviorSubject<DeviceOperationalStatus>(_status);
     _statusSink = Subject.Synchronize(_statusSubject);
-  }
-
-  protected AresDevice(string name) : this(name, Guid.NewGuid().ToString()) 
-  { 
-  
   }
 
   public DeviceOperationalStatus Status

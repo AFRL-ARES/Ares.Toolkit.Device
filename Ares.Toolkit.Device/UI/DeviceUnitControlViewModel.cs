@@ -4,9 +4,10 @@ using System;
 
 namespace Ares.Toolkit.Device.UI;
 
-public abstract class DeviceUnitControlViewModel<TDevice> : ReactiveObject where TDevice : IAresDevice
+public abstract class DeviceUnitControlViewModel<TDevice> : ReactiveObject, IDeviceUnitControlViewModel
+  where TDevice : IAresDevice
 {
-  protected DeviceUnitControlViewModel(TDevice device)
+  public DeviceUnitControlViewModel(TDevice device)
   {
     DeviceName = device.Name;
     DeviceId = device.UniqueId;
