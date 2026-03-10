@@ -1,6 +1,5 @@
 ﻿using Ares.Datamodel;
 using Ares.Datamodel.Device;
-using Ares.Datamodel.Device.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;

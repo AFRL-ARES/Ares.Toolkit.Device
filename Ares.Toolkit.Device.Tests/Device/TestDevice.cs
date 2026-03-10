@@ -1,8 +1,5 @@
 ﻿using Ares.Datamodel;
 using Ares.Datamodel.Device;
-using Ares.Datamodel.Device.Plugin;
-using Ares.Datamodel.Extensions;
-using Ares.Datamodel.Templates;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
