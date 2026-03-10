@@ -1,5 +1,6 @@
 ﻿using Ares.Datamodel;
 using Ares.Datamodel.Device;
+using Ares.Datamodel.Device.Plugin;
 using Ares.Datamodel.Extensions;
 using Ares.Datamodel.Templates;
 using System.Reactive.Linq;
@@ -11,7 +12,7 @@ public class TestDevice : AresDevice
 {
   private readonly BehaviorSubject<AresStruct> _stateSubject = new(new AresStruct());
 
-  public TestDevice() : base("Test Device", "TestDevice")
+  public TestDevice() : base(new DeviceConnectionInfo() { DeviceName = "Test Device", DeviceId = "TestDevice" })
   {
     CommandDescriptors = [new DeviceCommandDescriptor() { Name = "Record", Description = "A test command" }];
     Status = new DeviceOperationalStatus() { OperationalState = OperationalState.Inactive, Message = "I'm not ready to do experiments!" };
@@ -48,7 +49,7 @@ public class TestDevice : AresDevice
           return Task.FromResult(result);
         }
 
-        result.Result = AresStructHelper.CreateNumberStruct("Test", param.ArgValue.NumberValue);
+        result.Result = param.ArgValue;
         result.Success = true;
         result.UniqueId = Guid.NewGuid().ToString();
         return Task.FromResult(result);

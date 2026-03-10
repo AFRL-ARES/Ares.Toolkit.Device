@@ -1,5 +1,6 @@
 ﻿using Ares.Datamodel;
 using Ares.Datamodel.Device;
+using Ares.Datamodel.Device.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
@@ -17,10 +18,10 @@ public abstract class AresDevice : IAresDevice
   private DeviceOperationalStatus _status;
   private bool _disposed;
 
-  protected AresDevice(string name, string id)
+  protected AresDevice(DeviceConnectionInfo info)
   {
-    Name = name;
-    UniqueId = id;
+    Name = info.DeviceName;
+    UniqueId = info.DeviceId;
 
     _status = new DeviceOperationalStatus { OperationalState = OperationalState.Inactive };
     _statusSubject = new BehaviorSubject<DeviceOperationalStatus>(_status);

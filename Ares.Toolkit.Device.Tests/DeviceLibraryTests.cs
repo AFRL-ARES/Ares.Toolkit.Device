@@ -24,8 +24,8 @@ internal class DeviceLibraryTests
     var result = await device.ExecuteCommand(commandDescriptor.Name, [parameter], CancellationToken.None);
 
     Assert.That(result.Success);
-    var num = result.Result.Fields.FirstOrDefault(field => field.Key == "Test");
-    Assert.That(num.Value.NumberValue, Is.EqualTo(12345));
+    var num = result.Result;
+    Assert.That(num.NumberValue, Is.EqualTo(12345));
   }
 
   [Test]
