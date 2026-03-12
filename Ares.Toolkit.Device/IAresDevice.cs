@@ -21,9 +21,10 @@ public interface IAresDevice : IDisposable
   Task<bool> Activate(CancellationToken ct = default);
   Task EnterSafeMode(CancellationToken ct = default);
   Task<AresStruct> GetState();
-  IEnumerable<DeviceCommandDescriptor> CommandDescriptors { get; }
+  public Task<List<DeviceCommandDescriptor>> GetCommandDescriptorsAsync();
   AresStructSchema StateSchema { get; }
   AresStructSchema SettingSchema { get; }
+  Task<AresStruct> GetSettings();
   Task<CommandResult> ExecuteCommand(string command, List<DeviceCommandArgument> arguments, CancellationToken ct);
   Task UpdateSettings(AresStruct settings);
   void UpdateStatus(OperationalState state, string statusMessage = "");

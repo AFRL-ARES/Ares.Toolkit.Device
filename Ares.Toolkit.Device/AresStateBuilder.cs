@@ -138,60 +138,10 @@ public class AresStateBuilder
 
     var builder = new AresStateBuilder();
 
-    foreach(var kvp in source.Fields)
-    {
-      builder._struct.Fields[kvp.Key] = CloneValue(kvp.Value);
-    }
+    // MergeFrom performs a complete deep copy of the source message 
+    // into the builder's tracked _struct instance.
+    builder._struct.MergeFrom(source);
 
     return builder;
-  }
-
-  /// <summary>
-  /// Performs a deep clone of an <see cref="AresValue"/>, including any nested
-  /// structs or lists.
-  /// 
-  /// This is required to prevent shared mutable state when working with
-  /// protobuf-generated types.
-  /// </summary>
-  /// <param name="value">The value to clone.</param>
-  /// <returns>A deep copy of the provided value.</returns>
-  private static AresValue CloneValue(AresValue value)
-  {
-    if(value == null)
-      return new AresValue();
-
-    if(value.StructValue != null)
-    {
-      var structClone = new AresStruct();
-      foreach(var kvp in value.StructValue.Fields)
-      {
-        structClone.Fields[kvp.Key] = CloneValue(kvp.Value);
-      }
-
-      return new AresValue { StructValue = structClone };
-    }
-
-    if(value.ListValue != null)
-    {
-      var listClone = new AresValueList();
-      foreach(var item in value.ListValue.Values)
-      {
-        listClone.Values.Add(CloneValue(item));
-      }
-
-      return new AresValue { ListValue = listClone };
-    }
-
-    return new AresValue
-    {
-      BoolValue = value.BoolValue,
-      StringValue = value.StringValue,
-      NumberValue = value.NumberValue,
-      BytesValue = value.BytesValue,
-      StringArrayValue = value.StringArrayValue,
-      NumberArrayValue = value.NumberArrayValue,
-      UnitValue = value.UnitValue,
-      FunctionValue = value.FunctionValue
-    };
   }
 }

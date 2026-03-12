@@ -13,7 +13,8 @@ internal class DeviceLibraryTests
   public async Task Device_Should_Execute_Given_Command()
   {
     var device = new TestDevice();
-    var commandDescriptor = device.CommandDescriptors.First(metadata => metadata.Name == TestDeviceCommand.Record.ToString());
+    var descriptors = await device.GetCommandDescriptorsAsync();
+    var commandDescriptor = descriptors.First(metadata => metadata.Name == TestDeviceCommand.Record.ToString());
 
     var parameter = new DeviceCommandArgument
     {
@@ -74,13 +75,14 @@ internal class DeviceLibraryTests
   }
 
   [Test]
-  public void Device_Should_Have_Correct_Metadata()
+  public async Task Device_Should_Have_Correct_Metadata()
   {
     var device = new TestDevice();
     Assert.That(device.Name, Is.EqualTo("Test Device"));
     Assert.That(device.UniqueId, Is.EqualTo("TestDevice"));
 
-    var recordCommand = device.CommandDescriptors.FirstOrDefault(c => c.Name == TestDeviceCommand.Record.ToString());
+    var descriptors = await device.GetCommandDescriptorsAsync();
+    var recordCommand = descriptors.FirstOrDefault(c => c.Name == TestDeviceCommand.Record.ToString());
     Assert.That(recordCommand, Is.Not.Null);
     Assert.That(recordCommand!.Description, Is.EqualTo("A test command"));
   }

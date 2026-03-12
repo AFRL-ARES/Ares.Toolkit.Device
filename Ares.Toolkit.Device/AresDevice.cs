@@ -13,6 +13,7 @@ public abstract class AresDevice : IAresDevice
 {
   private readonly BehaviorSubject<DeviceOperationalStatus> _statusSubject;
   private readonly ISubject<DeviceOperationalStatus> _statusSink;
+  private readonly Lazy<Task<List<DeviceCommandDescriptor>>> _commandDescriptors;
   private readonly Lock _statusGate = new();
   private DeviceOperationalStatus _status;
   private bool _disposed;
@@ -25,6 +26,7 @@ public abstract class AresDevice : IAresDevice
     _status = new DeviceOperationalStatus { OperationalState = OperationalState.Inactive };
     _statusSubject = new BehaviorSubject<DeviceOperationalStatus>(_status);
     _statusSink = Subject.Synchronize(_statusSubject);
+    _commandDescriptors = new Lazy<Task<List<DeviceCommandDescriptor>>>(BuildCommandDescriptorsAsync);
   }
 
   public DeviceOperationalStatus Status
@@ -57,7 +59,9 @@ public abstract class AresDevice : IAresDevice
   public abstract Task<bool> Activate(CancellationToken ct);
   public abstract Task EnterSafeMode(CancellationToken ct);
   public abstract Task<AresStruct> GetState();
-  public virtual IEnumerable<DeviceCommandDescriptor> CommandDescriptors { get; protected set; } = Array.Empty<DeviceCommandDescriptor>();
+  public abstract Task<AresStruct> GetSettings();
+  public Task<List<DeviceCommandDescriptor>> GetCommandDescriptorsAsync() => _commandDescriptors.Value;
+  protected abstract Task<List<DeviceCommandDescriptor>> BuildCommandDescriptorsAsync();
   public virtual AresStructSchema StateSchema { get; protected set; } = new();
   public virtual AresStructSchema SettingSchema { get; protected set; } = new();
   public abstract Task<CommandResult> ExecuteCommand(string command, List<DeviceCommandArgument> arguments, CancellationToken token);

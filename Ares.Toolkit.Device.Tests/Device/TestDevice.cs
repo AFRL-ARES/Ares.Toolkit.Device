@@ -11,7 +11,6 @@ public class TestDevice : AresDevice
 
   public TestDevice() : base(new DeviceConnectionInfo() { DeviceName = "Test Device", DeviceId = "TestDevice" })
   {
-    CommandDescriptors = [new DeviceCommandDescriptor() { Name = "Record", Description = "A test command" }];
     Status = new DeviceOperationalStatus() { OperationalState = OperationalState.Inactive, Message = "I'm not ready to do experiments!" };
   }
 
@@ -59,6 +58,12 @@ public class TestDevice : AresDevice
   {
     return Task.CompletedTask;
   }
+
+  public override Task<AresStruct> GetSettings()
+    => Task.FromResult(new AresStruct());
+
+  protected override Task<List<DeviceCommandDescriptor>> BuildCommandDescriptorsAsync()
+    => Task.FromResult<List<DeviceCommandDescriptor>>([new DeviceCommandDescriptor() { Name = "Record", Description = "A test command" }]);
 
   public override IObservable<AresStruct> StateStream => _stateSubject.AsObservable();
 }
