@@ -35,7 +35,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ARES.Datamodel" Version="0.20.0" />
+    <PackageReference Include="ARES.Datamodel" Version="0.20.2-beta.1" />
     <PackageReference Include="Radzen.Blazor" Version="10.0.1" />
     <PackageReference Include="ReactiveUI" Version="23.1.8" />
     <PackageReference Include="ReactiveUI.Blazor" Version="23.1.8" />
