@@ -34,7 +34,7 @@ jobs:
 
       - name: Push
         run: |
-          dotnet nuget push Ares.Datamodel.${VERSION}.nupkg \
+          dotnet nuget push Ares.Toolkit.Device.${VERSION}.nupkg \
           --api-key ${{steps.login.outputs.NUGET_API_KEY}} \
           --source https://api.nuget.org/v3/index.json \
           --skip-duplicate
