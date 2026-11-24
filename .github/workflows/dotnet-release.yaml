@@ -3,6 +3,8 @@ on:
     types: [released]
 jobs:
   build:
+    permissions:
+      id-token: write
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
