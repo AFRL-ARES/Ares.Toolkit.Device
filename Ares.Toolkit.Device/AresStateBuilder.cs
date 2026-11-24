@@ -120,6 +120,23 @@ public class AresStateBuilder
   }
 
   /// <summary>
+  /// Adds or replaces a list field.
+  /// </summary>
+  /// <param name="key">The field name.</param>
+  /// <param name="items">The items to be cinluded in the list.</param>
+  /// <returns>The current builder instance.</returns>
+  public AresStateBuilder AddList(string key, IEnumerable<AresValue> items)
+  {
+    var valueList = new AresValueList();
+
+    if(items != null)
+      valueList.Values.AddRange(items);
+    
+    _struct.Fields[key] = new AresValue { ListValue = valueList };
+    return this;
+  }
+
+  /// <summary>
   /// Creates a new <see cref="AresStateBuilder"/> initialized with a deep copy
   /// of an existing <see cref="AresStruct"/>.
   /// 
